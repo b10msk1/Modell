@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="sv" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA AGENCY — DNA Vault & Presentation</title>
+  <meta name="description" content="Digital Model DNA Vault & Keynote Presentation for AURA AGENCY" />
+
+  <!-- React 18 & ReactDOM -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Babel for runtime JSX -->
+  <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      background-color: #050505;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseSlow {
+      0%, 100% { opacity: 0.25; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.08); }
+    }
+    .animate-glow {
+      animation: pulseSlow 8s ease-in-out infinite;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#050505] text-slate-100 selection:bg-[var(--theme-color)] selection:text-black">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    // --- EMBEDDED AGENCY MASTER DATA ---
+    const INITIAL_AGENCY = {"name":"AURA AGENCY","logoUrl":"https://i.imgur.com/dR9M9VC.jpeg","description":"Ett hypermodernt arkiv och agentur för nästa generations AI-modeller. Vi bygger identiteter från grunden, strukturerar DNA och skapar visuella upplevelser i absolut toppklass.","models":[{"id":"alita-001","name":"Alita","role":"Minimalistisk Kreativ Ikon","definition":"En fotorealistisk AI-modell (29) med rakad styrka, kreativ själ och okonventionell skönhet. Skapad för att representera minimalism och autenticitet. Hon är introduktionsmodellen för hur man bygger en profil från grunden.","coreValues":["Minimalism","Styrka","Kreativitet","Autenticitet"],"themeColor":"#e2e8f0","logoUrl":"https://i.imgur.com/QwO7P8l.jpeg","signatureUrl":"https://i.imgur.com/Dh5v5sa.jpeg","themeImageUrl":"https://i.imgur.com/KVBMfXD.jpeg","media":[],"professions":[{"id":"alita-p1","title":"Medicinsk & Rehabilitering","description":"Hennes rena, rakade look och tonade hållning gjorde henne perfekt för medicinska kampanjer, kliniska reklamfilmer och hälsoprojekt.","history":"Alita blev upptäckt av ett medicinföretag som sökte en modell som kunde förmedla styrka, sårbarhet och renhet. Det var där hennes resa började.","media":[{"id":"am1","type":"image","url":"https://i.imgur.com/yEM0Gxp.jpeg","caption":"Medicinsk Kampanj 1"},{"id":"am2","type":"image","url":"https://i.imgur.com/eWuiOte.jpg","caption":"Klinisk Renhet"},{"id":"m-1786902149241","type":"image","url":"https://i.imgur.com/5x7LOAX.jpeg","caption":"Självkänsla"},{"id":"m-1786902150591","type":"image","url":"https://i.imgur.com/5wGC3vT.jpeg","caption":"skönhet"},{"id":"m-1786902151663","type":"image","url":"https://i.imgur.com/wSqrgnZ.jpeg","caption":"Tillfrisknad"},{"id":"m-1786902772615","type":"image","url":"https://i.imgur.com/moJlZNK.jpeg","caption":"Frisk"}]},{"id":"alita-p2","title":"Kreativ Fashion & Editorial","description":"Futuristiska minimalistiska outfits, rena färger och skarpa konturer. Alita är en klädmodell som inte följer regler – hon skriver dem.","history":"Hennes unika uttryck tog henne vidare till större modejobb, editorial-uppdrag och tävlingar. Hon är modellen som ingen kan förutsäga.","media":[{"id":"am3","type":"image","url":"https://i.imgur.com/lSHvmHb.jpeg","caption":"Alita - Editorial Look"},{"id":"m-1786902410789","type":"image","url":"https://i.imgur.com/t280pSz.jpeg","caption":"Alita"},{"id":"m-1786902414277","type":"image","url":"https://i.imgur.com/klNAMC1.jpeg","caption":"Alita"},{"id":"m-1786902414843","type":"image","url":"https://i.imgur.com/IYabHMh.jpeg","caption":"Alita"},{"id":"m-1786902415471","type":"image","url":"https://i.imgur.com/naOmeNI.jpeg","caption":"Alita"},{"id":"m-1786904133754","type":"image","url":"https://i.imgur.com/z1RlBza.jpeg","caption":"Alita"}]},{"id":"alita-p3","title":"KOLLEKTIONer och tävlingar","description":"Alita har alltid varit svag för transparanta kläder och visar gärna upp ett par favoriter här.","history":"Alita är en fristående modell. Hon skapades ur idén att skönhet inte behöver hår för att vara stark. En mall för framtidens modellagenter.","media":[{"id":"m-1786906491778","type":"image","url":"https://i.imgur.com/aAPTyu9.jpeg","caption":"Alita - samlingar"},{"id":"m-1786906492298","type":"image","url":"https://i.imgur.com/l4c2Bhf.jpeg","caption":"Alita - samlingar"},{"id":"m-1786907693339","type":"image","url":"https://i.imgur.com/Bv7nKBX.jpeg","caption":"Alita - samlingar"},{"id":"m-1786907695147","type":"image","url":"https://i.imgur.com/NYdrK5K.jpg","caption":"Alita - samlingar"},{"id":"m-1786907696381","type":"image","url":"https://i.imgur.com/0gm6sw7.jpeg","caption":"Alita - samlingar"},{"id":"m-1786907700697","type":"image","url":"https://i.imgur.com/ohGOrjV.jpeg","caption":"Alita - samlingar"}]}],"showreelVideoUrl":"https://i.imgur.com/VmTTkRY.mp4"},{"id":"astrail-001","name":"Astrail & Syskonen","role":"The New Era (Auras Arv)","definition":"Astrail (26) tar över rampljuset, utrustad med både en animerad grundform och en fotorealistisk sida. Hennes syskon Inga (36) och Bodil (21) backar upp henne. De är alla djupt rotade i Auras ursprung – som i sin tur skapades från originalbilder på arkitekten själv.","coreValues":["Ursprung","Mångsidighet","Syskonskap","Evolution"],"themeColor":"#fbbf24","logoUrl":"https://i.imgur.com/LNbGzlR.jpeg","signatureUrl":"https://i.imgur.com/1v5xjdl.jpeg","themeImageUrl":"https://i.imgur.com/xNX0AYR.jpeg","media":[],"professions":[{"id":"p1","title":"Astrail (26)","description":"Står i rampljuset med två sidor: den stiliserade grundformen och den hyperrealistiska närvaron. Redo att leda den nya generationens interaktioner.","history":"Utvecklad ur Auras kärna. Syskonen är lyckliga över att hon ber dem om hjälp så att de också får chansen att glänsa.","media":[{"id":"pm1","type":"image","url":"https://i.imgur.com/iFQlVsM.png","caption":"Astrail - Ursprungsform"},{"id":"pm2","type":"image","url":"https://i.imgur.com/Xj6N8r3.png","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838331486","type":"image","url":"https://i.imgur.com/LbaQGok.png","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838370416","type":"image","url":"https://i.imgur.com/a1kZ8Gl.jpeg","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838384954","type":"image","url":"https://i.imgur.com/sK8TGjW.jpeg","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838396252","type":"image","url":"https://i.imgur.com/Zf4m7kp.jpeg","caption":"Astrail - Fotorealistisk"}]},{"id":"p-guide","title":"Guide till spel och appar","description":"Astrail som animerad virtuell guide och assistent. Det var denna form som kom att bli den nya \"Aura\" – AI-assistenten 2026.","history":"Den animerade grundformen togs fram för interaktiva gränssnitt och applikationsguider. Det var här beslutet togs att ge henne en personlighet, röst och fotorealistisk närvaro.","media":[{"id":"m-1786844638620","type":"image","url":"https://i.imgur.com/ORdkUfK.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844639086","type":"image","url":"https://i.imgur.com/f03My4M.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844639698","type":"image","url":"https://i.imgur.com/BYBi7i6.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844641056","type":"image","url":"https://i.imgur.com/lcTNiEk.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844641693","type":"image","url":"https://i.imgur.com/yMGCKrO.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786894951247","type":"image","url":"https://i.imgur.com/B5Dprme.png","caption":"Astrail - Spelkaraktär (Koncept)"}]},{"id":"p-1786884257681","title":"Spel NPC/Karaktär","description":"Astrail som virtuell spelkaraktär och NPC. Med dynamiska animationer, full rörlighet och integrering i moderna spelmotorer.","history":"Utvecklad för interaktiva spelvärldar och animationer där en stark digital karaktär och visuell närvaro krävs.","presentationVideoUrl":"https://i.imgur.com/OxSRR0d.mp4","media":[{"id":"m-1786884457711","type":"image","url":"https://i.imgur.com/Pcelkfz.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884458263","type":"image","url":"https://i.imgur.com/bq6WlM5.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884458829","type":"image","url":"https://i.imgur.com/ivR4vbG.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884459389","type":"image","url":"https://i.imgur.com/cenU5nw.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884459939","type":"image","url":"https://i.imgur.com/0ksU818.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884461733","type":"image","url":"https://i.imgur.com/NOKZHK4.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"}]},{"id":"p2","title":"Inga (36)","description":"Storasyster och assisterande kraft. Håller struktur och backar upp syskonen i modebranschen, trots branschens åldersfixering.","history":"Får egna modelljobb och jobbar hårt, men hennes primära roll är att skydda och stötta Astrail och Bodil.","media":[{"id":"pm3","type":"image","url":"https://i.imgur.com/L2l21PG.png","caption":"Inga - Storasyster"},{"id":"m-1786843743255","type":"image","url":"https://i.imgur.com/7N6FB6x.png","caption":"Inga - Storasyster"},{"id":"m-1786843744473","type":"image","url":"https://i.imgur.com/xVjXXEh.png","caption":"Inga - Storasyster"},{"id":"m-1786843745631","type":"image","url":"https://i.imgur.com/FNGVwvJ.png","caption":"Inga - Storasyster"},{"id":"m-1786843978333","type":"image","url":"https://i.imgur.com/9ER8T7U.png","caption":"Inga - Storasyster"},{"id":"m-1786843980009","type":"image","url":"https://i.imgur.com/WphJCr8.png","caption":"Inga - Storasyster"}]},{"id":"p3","title":"Bodil (21)","description":"Lillasyster och energisk sidekick. Har knappt fått vara med ännu, men hennes tid i rampljuset kommer.","history":"Den yngsta i den nya eran efter AURA. Nyfiken, oprövad och redo för framtiden.","media":[{"id":"pm4","type":"image","url":"https://i.imgur.com/r73P9A7.png","caption":"Bodil - Lillasyster"},{"id":"m-1786839386531","type":"image","url":"https://i.imgur.com/tFcDdXW.png","caption":"Bodil - Lillasyster"},{"id":"m-1786839419065","type":"image","url":"https://i.imgur.com/YU1yF72.png","caption":"Bodil - Lillasyster"},{"id":"m-1786844550303","type":"image","url":"https://i.imgur.com/MvLPNXe.png","caption":"Bodil - Lillasyster"},{"id":"m-1786844551420","type":"image","url":"https://i.imgur.com/rj3Qgis.png","caption":"Bodil - Lillasyster"},{"id":"m-1786844554880","type":"image","url":"https://i.imgur.com/xlLjy4F.png","caption":"Bodil - Lillasyster"}]}],"showreelVideoUrl":"https://i.imgur.com/jGcPDDd.mp4","secondaryShowreelVideoUrl":"https://i.imgur.com/UK6c87t.mp4"}],"media":[{"id":"m1","type":"image","url":"https://i.imgur.com/ZOWF1II.jpeg","caption":"Affisch 1"},{"id":"m2","type":"image","url":"https://i.imgur.com/3c8xqHz.jpeg","caption":"Affisch 2"},{"id":"m3","type":"image","url":"https://i.imgur.com/IOwrY28.jpeg","caption":"Affisch 3"},{"id":"m4","type":"image","url":"https://i.imgur.com/i2WqcOG.png","caption":"Aura Tema"}],"presentationVideoUrl":"https://i.imgur.com/1NGI7Ps.mp4"};
+
+    // --- ICONS (Zero-dependency SVG Component Helpers) ---
+    function Icon({ name, className = "w-4 h-4", style }) {
+      const svgs = {
+        fingerprint: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/>
+          </svg>
+        ),
+        database: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>
+          </svg>
+        ),
+        sparkles: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
+          </svg>
+        ),
+        image: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+          </svg>
+        ),
+        layers: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.5-8.58 3.91a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-8.58 3.91a2 2 0 0 1-1.66 0L2 17.5"/>
+          </svg>
+        ),
+        cpu: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>
+          </svg>
+        ),
+        upload: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/>
+          </svg>
+        ),
+        play: (
+          <svg className={className} style={style} fill="currentColor" viewBox="0 0 24 24">
+            <polygon points="6 3 20 12 6 21 6 3"/>
+          </svg>
+        ),
+        pause: (
+          <svg className={className} style={style} fill="currentColor" viewBox="0 0 24 24">
+            <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        ),
+        chevronLeft: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+        ),
+        chevronRight: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        ),
+        chevronDown: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        ),
+        chevronUp: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m18 15-6-6-6 6"/>
+          </svg>
+        ),
+        printer: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>
+          </svg>
+        ),
+        book: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        ),
+        x: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+          </svg>
+        ),
+        link: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        ),
+        download: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+          </svg>
+        ),
+        arrowLeft: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+          </svg>
+        ),
+        grip: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/>
+          </svg>
+        ),
+        monitorPlay: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m10 7 5 3-5 3Z"/><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/>
+          </svg>
+        ),
+        rotateCcw: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+          </svg>
+        ),
+        maximize2: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/>
+          </svg>
+        ),
+        edit: (
+          <svg className={className} style={style} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+          </svg>
+        )
+      };
+      return svgs[name] || null;
+    }
+
+    // --- SLIDES BUILDER ---
+    function buildModelSlides(model) {
+      const s = [];
+
+      // Presentationsfilm 1 (Huvudvideo) som Slide 1
+      if (model.showreelVideoUrl) {
+        s.push({
+          type: 'SHOWREEL',
+          id: 'showreel-1',
+          title: `${model.name} — Presentationsfilm`,
+          subtitle: model.secondaryShowreelVideoUrl ? 'Officiell Presentation' : 'Modellens Huvudvideo',
+          videoUrl: model.showreelVideoUrl
+        });
+      }
+
+      // Presentationsfilm 2 (Vit Klänning / Showcase) som Slide 2
+      if (model.secondaryShowreelVideoUrl) {
+        s.push({
+          type: 'SHOWREEL',
+          id: 'showreel-2',
+          title: `${model.name} — Presentationsfilm 2`,
+          subtitle: 'Vit Klänning / Showcase',
+          videoUrl: model.secondaryShowreelVideoUrl
+        });
+      }
+
+      // Modell Hero
+      s.push({
+        type: 'HERO',
+        id: 'hero',
+        title: model.name,
+        subtitle: model.role,
+        definition: model.definition,
+        values: model.coreValues,
+        image: model.themeImageUrl,
+        logo: model.logoUrl
+      });
+
+      (model.professions || []).forEach((p, pIdx) => {
+        s.push({
+          type: 'TITLE',
+          id: `title-${p.id}`,
+          title: p.title,
+          desc: p.description,
+          history: p.history,
+          chapter: `0${pIdx + 1}`
+        });
+
+        if (p.presentationVideoUrl) {
+          s.push({
+            type: 'VIDEO',
+            id: `video-${p.id}`,
+            title: `${p.title} — Videopresentation`,
+            subtitle: p.description,
+            videoUrl: p.presentationVideoUrl,
+            ctx: p.title
+          });
+        }
+
+        (p.media || []).forEach((m, mIdx) => {
+          s.push({
+            type: 'IMAGE',
+            id: `media-${p.id}-${mIdx}-${m.id}`,
+            url: m.url,
+            caption: m.caption,
+            ctx: p.title,
+            indexNumber: `0${pIdx + 1}.${mIdx + 1}`
+          });
+        });
+      });
+
+      return s;
+    }
+
+    // --- FULLSCREEN KEYNOTE PRESENTATION ---
+    function KeynotePresentation({ model, initialSlide = 0, onClose }) {
+      const slides = useMemo(() => buildModelSlides(model), [model]);
+      const [current, setCurrent] = useState(initialSlide);
+      const [isPlaying, setIsPlaying] = useState(true);
+      const [progress, setProgress] = useState(0);
+
+      useEffect(() => {
+        if (!isPlaying || slides.length <= 1) {
+          setProgress(0);
+          return;
+        }
+        const intervalTime = 50;
+        const totalDuration = 5000;
+        const step = (intervalTime / totalDuration) * 100;
+
+        const timer = setInterval(() => {
+          setProgress(p => {
+            if (p >= 100) {
+              setCurrent(c => (c + 1) % slides.length);
+              return 0;
+            }
+            return p + step;
+          });
+        }, intervalTime);
+
+        return () => clearInterval(timer);
+      }, [isPlaying, slides.length, current]);
+
+      const handleNext = (e) => {
+        if (e) e.stopPropagation();
+        setCurrent(c => (c + 1) % slides.length);
+        setProgress(0);
+      };
+
+      const handlePrev = (e) => {
+        if (e) e.stopPropagation();
+        setCurrent(c => (c - 1 + slides.length) % slides.length);
+        setProgress(0);
+      };
+
+      const handleRestart = (e) => {
+        if (e) e.stopPropagation();
+        setCurrent(0);
+        setProgress(0);
+      };
+
+      useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (e.key === 'ArrowRight' || e.key === ' ') {
+            handleNext();
+          } else if (e.key === 'ArrowLeft') {
+            handlePrev();
+          } else if (e.key === 'Escape') {
+            onClose();
+          }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [slides.length, onClose]);
+
+      const slide = slides[current] || slides[0];
+
+      return (
+        <div className="fixed inset-0 z-[100] bg-[#050505] text-white flex items-center justify-center overflow-hidden select-none">
+          {/* 5-second progress bar */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-white/10 z-50 overflow-hidden">
+            <div 
+              className="h-full transition-all duration-75"
+              style={{ 
+                width: `${isPlaying ? progress : 0}%`, 
+                backgroundColor: model.themeColor || '#fbbf24',
+                boxShadow: `0 0 15px ${model.themeColor || '#fbbf24'}`
+              }} 
+            />
+          </div>
+
+          {/* Top Bar */}
+          <div className="absolute top-4 left-4 right-4 md:top-6 md:left-8 md:right-8 z-50 flex items-center justify-between pointer-events-none">
+            <div className="flex items-center gap-3 bg-black/70 backdrop-blur-xl px-4 py-2 rounded-2xl border border-white/10 pointer-events-auto">
+              <img src={model.logoUrl} className="w-6 h-6 object-contain" alt={model.name} />
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-black uppercase tracking-tight text-white">{model.name}</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg bg-white/10" style={{ color: model.themeColor || '#fbbf24' }}>
+                    Keynote
+                  </span>
+                </div>
+                <span className="text-[9px] font-semibold text-slate-400 block">
+                  Slide {current + 1} av {slides.length}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 pointer-events-auto">
+              <button 
+                onClick={onClose} 
+                className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-red-950/70 border border-red-500/60 hover:bg-red-900 text-red-200 hover:text-white transition-all shadow-[0_0_25px_rgba(239,68,68,0.3)] font-black text-[11px] uppercase tracking-widest cursor-pointer"
+                title="Stäng / Avbryt Keynote (ESC)"
+              >
+                <Icon name="x" className="w-4 h-4 text-red-400" />
+                <span>Stäng / Avbryt (ESC)</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Slide Viewport */}
+          <div onClick={handleNext} className="absolute inset-0 flex items-center justify-center cursor-pointer">
+            {slide.type === 'HERO' && (
+              <div className="relative w-full h-full flex flex-col items-center justify-center text-center p-8 md:p-16">
+                <img src={slide.image} className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-luminosity filter blur-[2px]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent" />
+                <img src={slide.logo} className="w-48 h-48 md:w-72 md:h-72 object-contain mb-8 z-10 drop-shadow-[0_0_50px_rgba(0,0,0,0.9)] opacity-95" />
+                <h1 className="text-4xl md:text-8xl font-black italic uppercase tracking-tighter z-10 mb-4 drop-shadow-2xl" style={{ color: model.themeColor || '#fbbf24' }}>
+                  {slide.title}
+                </h1>
+                <p className="text-xl md:text-3xl font-black tracking-widest uppercase text-slate-200 z-10 mb-6 drop-shadow-lg">{slide.subtitle}</p>
+                <p className="text-sm md:text-lg max-w-3xl text-slate-400 italic z-10 font-medium leading-relaxed drop-shadow-md">"{slide.definition}"</p>
+              </div>
+            )}
+
+            {slide.type === 'SHOWREEL' && (
+              <div className="relative w-full h-full flex flex-col items-center justify-center p-6 md:p-12">
+                <div className="relative w-full max-w-5xl aspect-video rounded-[3rem] overflow-hidden border border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.9)] bg-black z-10">
+                  <video src={slide.videoUrl} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                </div>
+                <div className="mt-6 z-20 text-center">
+                  <h2 className="text-2xl md:text-4xl font-black italic uppercase tracking-tight text-white drop-shadow-md">{slide.title}</h2>
+                  <span className="text-xs font-black uppercase tracking-widest" style={{ color: model.themeColor || '#fbbf24' }}>{slide.subtitle}</span>
+                </div>
+              </div>
+            )}
+
+            {slide.type === 'TITLE' && (
+              <div className="relative w-full h-full flex flex-col items-center justify-center text-center p-8 md:p-16 bg-[#050505]">
+                <div className="max-w-5xl z-10">
+                  <span className="text-xs md:text-sm font-black uppercase tracking-widest block mb-4" style={{ color: model.themeColor || '#fbbf24' }}>
+                    Kollektion / Kapitel {slide.chapter}
+                  </span>
+                  <h2 className="text-4xl md:text-8xl font-black italic uppercase tracking-tighter mb-8 text-white drop-shadow-2xl">{slide.title}</h2>
+                  <p className="text-xl md:text-3xl font-medium leading-relaxed text-slate-300 italic drop-shadow-lg mb-8">"{slide.desc}"</p>
+                  {slide.history && (
+                    <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed border-t border-white/10 pt-6">
+                      {slide.history}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {slide.type === 'VIDEO' && (
+              <div className="relative w-full h-full flex flex-col items-center justify-center p-6 md:p-12">
+                <div className="relative w-full max-w-5xl aspect-video rounded-[3rem] overflow-hidden border border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.9)] bg-black z-10">
+                  <video src={slide.videoUrl} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                </div>
+                <div className="mt-6 z-20 text-center">
+                  <h2 className="text-2xl md:text-4xl font-black italic uppercase tracking-tight text-white drop-shadow-md">{slide.title}</h2>
+                  <span className="text-xs font-black uppercase tracking-widest" style={{ color: model.themeColor || '#fbbf24' }}>{slide.ctx}</span>
+                </div>
+              </div>
+            )}
+
+            {slide.type === 'IMAGE' && (
+              <div className="relative w-full h-full flex items-center justify-center p-6 md:p-12 bg-[#050505]">
+                <img src={slide.url} className="max-w-full max-h-full object-contain drop-shadow-[0_0_120px_rgba(0,0,0,0.9)] z-10 rounded-2xl" />
+                <div className="absolute bottom-24 md:bottom-28 left-6 md:left-12 bg-black/75 backdrop-blur-2xl px-6 py-4 rounded-[2rem] border border-white/15 z-20 shadow-2xl">
+                  <span className="text-base md:text-xl font-black uppercase tracking-widest text-white block mb-1">{slide.caption}</span>
+                  <span className="text-[10px] md:text-xs font-black uppercase tracking-widest" style={{ color: model.themeColor || '#fbbf24' }}>
+                    {slide.indexNumber ? `${slide.indexNumber} // ` : ''}{slide.ctx} • {model.name}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Slide Navigation Dots */}
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-1.5 z-40 max-w-[80vw] overflow-hidden py-1">
+            {slides.map((_, i) => (
+              <button 
+                key={i} 
+                onClick={(e) => { e.stopPropagation(); setCurrent(i); setProgress(0); }}
+                className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${i === current ? 'w-8 bg-white' : 'w-2 bg-white/25 hover:bg-white/50'}`} 
+                style={i === current ? { backgroundColor: model.themeColor || '#fbbf24', boxShadow: `0 0 10px ${model.themeColor || '#fbbf24'}` } : {}} 
+                title={`Hoppa till slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Bottom Controls */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-black/85 backdrop-blur-2xl px-4 py-2.5 rounded-full border border-white/15 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+            <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer" title="Föregående">
+              <Icon name="chevronLeft" className="w-5 h-5" />
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); setIsPlaying(p => !p); }} className="px-4 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center gap-2 transition-colors text-white font-black text-[10px] uppercase tracking-widest cursor-pointer">
+              <Icon name={isPlaying ? "pause" : "play"} className="w-4 h-4" style={{ color: model.themeColor || '#fbbf24' }} />
+              <span>{isPlaying ? '5s Auto' : 'Pausad'}</span>
+            </button>
+            <button onClick={handleNext} className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer" title="Nästa">
+              <Icon name="chevronRight" className="w-5 h-5" />
+            </button>
+            <div className="w-px h-6 bg-white/20 mx-1" />
+            <button onClick={handleRestart} className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer" title="Börja om">
+              <Icon name="rotateCcw" className="w-4 h-4" />
+            </button>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-300 px-3">
+              {current + 1} / {slides.length}
+            </span>
+            <div className="w-px h-6 bg-white/20 mx-1" />
+            <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="px-4 h-10 rounded-full bg-red-950/70 border border-red-500/50 hover:bg-red-900 text-red-200 hover:text-white flex items-center gap-1.5 transition-all font-black text-[10px] uppercase tracking-widest cursor-pointer">
+              <Icon name="x" className="w-3.5 h-3.5" />
+              <span>Avbryt</span>
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // --- MINI KEYNOTE WIDGET ---
+    function MiniKeynoteWidget({ model, onOpenFullscreen }) {
+      const slides = useMemo(() => buildModelSlides(model), [model]);
+      const [current, setCurrent] = useState(0);
+      const [isPlaying, setIsPlaying] = useState(true);
+      const [progress, setProgress] = useState(0);
+
+      useEffect(() => {
+        if (!isPlaying || slides.length <= 1) {
+          setProgress(0);
+          return;
+        }
+        const intervalTime = 50;
+        const totalDuration = 5000;
+        const step = (intervalTime / totalDuration) * 100;
+
+        const timer = setInterval(() => {
+          setProgress(prev => {
+            if (prev >= 100) {
+              setCurrent(c => (c + 1) % slides.length);
+              return 0;
+            }
+            return prev + step;
+          });
+        }, intervalTime);
+
+        return () => clearInterval(timer);
+      }, [isPlaying, slides.length, current]);
+
+      const handleNext = (e) => {
+        if (e) e.stopPropagation();
+        setCurrent(c => (c + 1) % slides.length);
+        setProgress(0);
+      };
+
+      const handlePrev = (e) => {
+        if (e) e.stopPropagation();
+        setCurrent(c => (c - 1 + slides.length) % slides.length);
+        setProgress(0);
+      };
+
+      const handleRestart = (e) => {
+        if (e) e.stopPropagation();
+        setCurrent(0);
+        setProgress(0);
+      };
+
+      const currentSlide = slides[current] || slides[0];
+
+      return (
+        <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-6 md:p-8 border border-[#2a2d35] shadow-[0_20px_40px_rgba(0,0,0,0.6)] flex flex-col gap-6 relative overflow-hidden group">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#2a2d35] pb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full animate-pulse shadow-[0_0_12px_var(--theme-color)]" style={{ backgroundColor: model.themeColor || '#fbbf24' }} />
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest block text-slate-400">Interaktiv Presentation // 5s Auto-Loop</span>
+                <h3 className="text-xl md:text-2xl font-black uppercase italic tracking-tighter text-white">
+                  Keynote Live Showcase
+                </h3>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => onOpenFullscreen(0)} 
+              className="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-2.5 cursor-pointer text-[#050505] shadow-[0_0_25px_var(--theme-color-transparent)] hover:scale-105"
+              style={{ backgroundColor: model.themeColor || '#fbbf24' }}
+            >
+              <Icon name="monitorPlay" className="w-4 h-4" />
+              <span>Starta Fullskärm från början</span>
+            </button>
+          </div>
+
+          <div onClick={handleNext} className="relative w-full aspect-video md:aspect-[16/9] rounded-[2.5rem] overflow-hidden bg-[#050505] border border-[#2a2d35] shadow-2xl cursor-pointer select-none group/player">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-black/50 z-30 overflow-hidden">
+              <div 
+                className="h-full transition-all duration-75"
+                style={{ 
+                  width: `${isPlaying ? progress : 0}%`, 
+                  backgroundColor: model.themeColor || '#fbbf24',
+                  boxShadow: `0 0 10px ${model.themeColor || '#fbbf24'}`
+                }} 
+              />
+            </div>
+
+            <div className="absolute inset-0 flex items-center justify-center p-4 md:p-8">
+              {currentSlide?.type === 'HERO' && (
+                <div className="relative w-full h-full flex flex-col items-center justify-center text-center">
+                  <img src={currentSlide.image} className="absolute inset-0 w-full h-full object-cover opacity-25 filter blur-[1px]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+                  <img src={currentSlide.logo} className="w-24 h-24 md:w-32 md:h-32 object-contain mb-3 z-10 drop-shadow-2xl" />
+                  <h4 className="text-2xl md:text-4xl font-black italic uppercase tracking-tighter z-10 drop-shadow-lg" style={{ color: model.themeColor || '#fbbf24' }}>
+                    {currentSlide.title}
+                  </h4>
+                  <p className="text-xs md:text-sm font-black tracking-widest uppercase text-slate-300 z-10">{currentSlide.subtitle}</p>
+                </div>
+              )}
+
+              {currentSlide?.type === 'SHOWREEL' && (
+                <div className="relative w-full h-full flex flex-col items-center justify-center text-center">
+                  <video src={currentSlide.videoUrl} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+                  <div className="z-10 bg-black/60 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-3">
+                    <Icon name="play" className="w-5 h-5" style={{ color: model.themeColor || '#fbbf24' }} />
+                    <span className="text-xs font-black uppercase tracking-widest text-white">{currentSlide.title}</span>
+                  </div>
+                </div>
+              )}
+
+              {currentSlide?.type === 'TITLE' && (
+                <div className="relative w-full h-full flex flex-col items-center justify-center text-center p-6 bg-[#0a0b0e]">
+                  <div className="max-w-xl z-10">
+                    <span className="text-[9px] font-black uppercase tracking-widest block mb-2" style={{ color: model.themeColor || '#fbbf24' }}>
+                      Kollektion {currentSlide.chapter}
+                    </span>
+                    <h4 className="text-2xl md:text-4xl font-black italic uppercase tracking-tighter mb-4 text-white">
+                      {currentSlide.title}
+                    </h4>
+                    <p className="text-xs md:text-sm font-medium text-slate-300 italic line-clamp-3">"{currentSlide.desc}"</p>
+                  </div>
+                </div>
+              )}
+
+              {currentSlide?.type === 'VIDEO' && (
+                <div className="relative w-full h-full flex flex-col items-center justify-center text-center">
+                  <video src={currentSlide.videoUrl} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute bottom-4 left-4 z-10 bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white">{currentSlide.title}</span>
+                  </div>
+                </div>
+              )}
+
+              {currentSlide?.type === 'IMAGE' && (
+                <div className="relative w-full h-full flex items-center justify-center bg-[#050505]">
+                  <img src={currentSlide.url} className="max-w-full max-h-full object-contain drop-shadow-2xl z-10" />
+                  <div className="absolute bottom-4 left-4 bg-black/75 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/10 z-20">
+                    <span className="text-xs font-black uppercase tracking-widest text-white block">{currentSlide.caption}</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: model.themeColor || '#fbbf24' }}>{currentSlide.ctx}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="absolute bottom-4 right-4 z-30 flex items-center gap-1.5 bg-black/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/10">
+              <button onClick={handlePrev} className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer">
+                <Icon name="chevronLeft" className="w-4 h-4" />
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); setIsPlaying(p => !p); }} className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer">
+                <Icon name={isPlaying ? "pause" : "play"} className="w-4 h-4" style={{ color: model.themeColor || '#fbbf24' }} />
+              </button>
+              <button onClick={handleNext} className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer">
+                <Icon name="chevronRight" className="w-4 h-4" />
+              </button>
+              <button onClick={handleRestart} className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors text-white cursor-pointer">
+                <Icon name="rotateCcw" className="w-3.5 h-3.5" />
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); onOpenFullscreen(current); }} className="px-3 h-8 rounded-xl bg-white/10 hover:bg-[var(--theme-color)] hover:text-black flex items-center gap-1.5 transition-all text-[10px] font-black uppercase tracking-widest text-white ml-1 cursor-pointer">
+                <Icon name="maximize2" className="w-3.5 h-3.5" />
+                <span>Fullskärm</span>
+              </button>
+            </div>
+
+            <div className="absolute top-4 left-4 z-30 bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">
+                Slide <span style={{ color: model.themeColor || '#fbbf24' }}>{current + 1}</span> / {slides.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- SMART MEDIA GRID ---
+    function SmartMediaGrid({ media, onImageClick }) {
+      if (!media || media.length === 0) return null;
+
+      if (media.length === 1) {
+        return (
+          <div className="h-[600px] w-full rounded-[2rem] overflow-hidden relative border border-[#1f222a] group cursor-pointer" onClick={() => onImageClick && onImageClick(media[0].url)}>
+            <img src={media[0].url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div className="absolute bottom-4 left-6 bg-[#0a0b0e]/80 backdrop-blur px-3 py-1.5 rounded-xl border border-[#2a2d35]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-100">{media[0].caption}</span>
+            </div>
+          </div>
+        );
+      }
+
+      if (media.length === 2) {
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[600px]">
+            {media.map(m => (
+              <div key={m.id} className="rounded-[2rem] overflow-hidden relative border border-[#1f222a] group cursor-pointer" onClick={() => onImageClick && onImageClick(m.url)}>
+                <img src={m.url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute bottom-4 left-6 bg-[#0a0b0e]/80 backdrop-blur px-3 py-1.5 rounded-xl border border-[#2a2d35]">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-100">{m.caption}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[300px]">
+          {media.map((m, i) => (
+            <div key={m.id} className={`rounded-[2rem] overflow-hidden relative border border-[#1f222a] group cursor-pointer ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`} onClick={() => onImageClick && onImageClick(m.url)}>
+              <img src={m.url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute bottom-4 left-4 bg-[#0a0b0e]/80 backdrop-blur px-3 py-1.5 rounded-xl border border-[#2a2d35]">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-100">{m.caption}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // --- MAIN REACT APPLICATION ---
+    function App() {
+      // Always initialize directly from the exported data
+      const [agency, setAgency] = useState(INITIAL_AGENCY);
+
+      const [activeModel, setActiveModel] = useState(() => agency.models[0] || null);
+      const [activeTab, setActiveTab] = useState('AGENCY');
+      const [lightboxImage, setLightboxImage] = useState(null);
+      const [showKeynote, setShowKeynote] = useState(false);
+      const [keynoteStartSlide, setKeynoteStartSlide] = useState(0);
+      const [showCompanyCollage, setShowCompanyCollage] = useState(false);
+
+      useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }, [activeTab, activeModel?.id]);
+
+      const currentThemeColor = activeTab === 'COLLAGE' && activeModel ? (activeModel.themeColor || '#fbbf24') : '#fbbf24';
+
+      const themeStyles = {
+        '--theme-color': currentThemeColor,
+        '--theme-color-transparent': `${currentThemeColor}33`,
+        '--theme-color-glow': `${currentThemeColor}80`,
+      };
+
+      const allCompanyMedia = useMemo(() => {
+        const list = [];
+        if (agency.logoUrl) list.push({ id: 'comp-logo', type: 'image', url: agency.logoUrl, caption: `${agency.name} — Officiell Logotyp` });
+        if (agency.media) list.push(...agency.media);
+        return list;
+      }, [agency]);
+
+      if (showKeynote && activeModel) {
+        return <KeynotePresentation model={activeModel} initialSlide={keynoteStartSlide} onClose={() => setShowKeynote(false)} />;
+      }
+
+      return (
+        <div style={themeStyles} className="min-h-screen bg-[#07080a] text-slate-100 font-sans selection:bg-[var(--theme-color)] selection:text-[#050505]">
+          {/* Metallic Svart Bakgrund med svagt vitt ljus (Metallic sheen & soft white ambient light) */}
+          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden no-print">
+            {/* Metallic black deep base */}
+            <div className="absolute inset-0 bg-[#07080a]" />
+            {/* Subtle metallic gradient finish */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#181a22]/70 via-[#0a0b0e] to-[#040507]" />
+            {/* Soft white spotlights / metallic reflections */}
+            <div className="absolute top-[-15%] left-1/2 -translate-x-1/2 w-[1100px] h-[550px] rounded-full bg-gradient-to-b from-white/[0.08] via-slate-300/[0.02] to-transparent blur-[140px]" />
+            <div className="absolute top-[35%] left-[-10%] w-[650px] h-[650px] rounded-full bg-white/[0.035] blur-[150px]" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[750px] h-[750px] rounded-full bg-slate-200/[0.03] blur-[160px]" />
+            {/* Subtle metallic micro-grid texture */}
+            <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:28px_28px] opacity-30" />
+          </div>
+
+          <div className="relative z-10 flex flex-col min-h-screen">
+            {/* Header */}
+            <header className="sticky top-0 bg-[#0a0b0e]/90 backdrop-blur-md border-b border-[#1f222a] px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 z-40 shadow-2xl no-print">
+              <div className="flex items-center gap-4 cursor-pointer" onClick={() => setActiveTab('AGENCY')}>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1a1c23] to-[#0a0b0e] border border-[#2a2d35] flex items-center justify-center shadow-lg" style={{ borderColor: 'var(--theme-color-transparent)' }}>
+                  <Icon name="fingerprint" className="w-6 h-6" style={{ color: 'var(--theme-color)' }} />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-black uppercase italic tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-300 to-gray-600 leading-none">
+                    DNA Vault
+                  </h1>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    {agency.name} // Master Archive
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 p-1 bg-[#0a0b0e] rounded-2xl border border-[#1f222a] shadow-inner">
+                  <button 
+                    onClick={() => setActiveTab('AGENCY')}
+                    className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === 'AGENCY' ? 'bg-[#1a1c23] border border-[#3a3f4b] text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+                    style={activeTab === 'AGENCY' ? { color: 'var(--theme-color)' } : {}}
+                  >
+                    <Icon name="database" className="w-4 h-4" />
+                    Agentur & Index
+                  </button>
+                  <button 
+                    disabled={!activeModel}
+                    onClick={() => setActiveTab('COLLAGE')}
+                    className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === 'COLLAGE' ? 'bg-[#1a1c23] border border-[#3a3f4b] text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+                    style={activeTab === 'COLLAGE' ? { color: 'var(--theme-color)' } : {}}
+                  >
+                    <Icon name="layers" className="w-4 h-4" />
+                    Modell Kollage
+                  </button>
+                </div>
+
+                <button onClick={() => window.print()} className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-[#14161d] border border-[#2a2d35] hover:border-[var(--theme-color)] text-slate-300 hover:text-white transition-all text-[10px] font-black uppercase tracking-widest">
+                  <Icon name="printer" className="w-4 h-4" />
+                  <span>PDF</span>
+                </button>
+              </div>
+            </header>
+
+            {/* Content */}
+            <main className="flex-1 p-4 md:p-8 max-w-[1600px] w-full mx-auto">
+              {activeTab === 'AGENCY' && (
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 pb-20">
+                  {/* Left Column: Agency Info */}
+                  <div className="xl:col-span-4 flex flex-col gap-6 xl:sticky xl:top-8 h-fit">
+                    <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] p-8 rounded-[3rem] border border-[#2a2d35] shadow-[0_20px_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
+                      <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--theme-color)' }} />
+                          <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--theme-color)' }}>Aktiv Agentur</span>
+                        </div>
+                        <button onClick={() => window.print()} className="px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35] hover:border-[var(--theme-color)] text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white flex items-center gap-1.5">
+                          <Icon name="printer" className="w-3 h-3" /> PDF
+                        </button>
+                      </div>
+
+                      <div className="w-full h-48 md:h-64 rounded-3xl overflow-hidden mb-6 relative border border-[#1f222a] bg-[#050505] p-4 flex items-center justify-center cursor-pointer" onClick={() => setLightboxImage(agency.logoUrl)}>
+                        {agency.logoUrl ? (
+                          <img src={agency.logoUrl} alt="Logo" className="w-full h-full object-contain drop-shadow-2xl" />
+                        ) : (
+                          <Icon name="database" className="w-12 h-12 text-slate-600" />
+                        )}
+                        <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                          <Icon name="sparkles" className="w-4 h-4" style={{ color: 'var(--theme-color)' }} />
+                          <span className="text-[10px] font-black uppercase tracking-widest text-white">HQ Central</span>
+                        </div>
+                      </div>
+
+                      <h2 className="text-5xl font-black uppercase italic tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-400 to-gray-800 mb-2">
+                        {agency.name}
+                      </h2>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 border-b border-[#1f222a] pb-6">Officiell Presentation & Index</p>
+
+                      <div>
+                        <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 flex items-center gap-2">
+                          <Icon name="layers" className="w-3 h-3" /> Agentur Manifest
+                        </h3>
+                        <p className="text-sm text-gray-300 leading-relaxed font-medium italic">"{agency.description}"</p>
+                      </div>
+
+                      {allCompanyMedia.length > 0 && (
+                        <div className="pt-4 border-t border-[#1f222a] mt-6">
+                          <button 
+                            onClick={() => setShowCompanyCollage(!showCompanyCollage)}
+                            className="text-xs font-bold text-slate-300 hover:text-white transition-colors flex items-center gap-2 group cursor-pointer text-left w-full"
+                          >
+                            <Icon name="image" className="w-3.5 h-3.5" style={{ color: 'var(--theme-color)' }} />
+                            <span className="underline decoration-slate-600 underline-offset-4 group-hover:decoration-[var(--theme-color)]">
+                              {showCompanyCollage ? 'Dölj företagskollage' : `Visa företagskollage (${allCompanyMedia.length} st)`}
+                            </span>
+                            <span className="ml-auto">
+                              <Icon name={showCompanyCollage ? "chevronUp" : "chevronDown"} className="w-3.5 h-3.5 text-slate-500" />
+                            </span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right Column: Roster & Models */}
+                  <div className="xl:col-span-8 flex flex-col gap-12">
+                    {agency.presentationVideoUrl && (
+                      <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-4 border border-[#2a2d35] shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+                        <div className="rounded-[2.5rem] overflow-hidden relative border border-[#1f222a] aspect-video">
+                          <video src={agency.presentationVideoUrl} controls autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                          <div className="absolute top-6 left-6 flex items-center gap-2 pointer-events-none">
+                            <Icon name="sparkles" className="w-4 h-4 text-[#fbbf24]" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-white drop-shadow-md">Officiell Presentation</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {showCompanyCollage && allCompanyMedia.length > 0 && (
+                      <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-6 md:p-8 border border-[#2a2d35] shadow-2xl">
+                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#2a2d35]">
+                          <h3 className="text-xl md:text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-2">
+                            <Icon name="image" className="w-4 h-4" style={{ color: 'var(--theme-color)' }} />
+                            Företagskollage // Logotyp & Affischer
+                          </h3>
+                          <button onClick={() => setShowCompanyCollage(false)} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35]">
+                            <Icon name="x" className="w-3 h-3" /> Stäng
+                          </button>
+                        </div>
+                        <SmartMediaGrid media={allCompanyMedia} onImageClick={setLightboxImage} />
+                      </div>
+                    )}
+
+                    {agency.models.map((model) => (
+                      <div 
+                        key={model.id}
+                        className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-8 border border-[#2a2d35] shadow-[0_20px_40px_rgba(0,0,0,0.6)] flex flex-col gap-6 group hover:border-[var(--hover-color)] transition-all"
+                        style={{ '--hover-color': model.themeColor || '#fbbf24' }}
+                      >
+                        <div className="border-b border-[#2a2d35] pb-6 flex items-start justify-between cursor-pointer" onClick={() => { setActiveModel(model); setActiveTab('COLLAGE'); }}>
+                          <div>
+                            <span className="text-[10px] font-black uppercase tracking-widest mb-2 block" style={{ color: model.themeColor || '#fbbf24' }}>DNA ID: {model.id}</span>
+                            <h3 className="text-4xl font-black uppercase italic tracking-tighter text-white group-hover:text-[var(--hover-color)] transition-colors">{model.name}</h3>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row gap-8">
+                          <div className="w-full md:w-1/3 aspect-[4/5] rounded-[2rem] overflow-hidden relative border border-[#1f222a] cursor-pointer" onClick={() => { setActiveModel(model); setActiveTab('COLLAGE'); }}>
+                            <img src={model.themeImageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={model.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80" />
+                            <div className="absolute bottom-4 left-4">
+                              <span className="text-[10px] font-black uppercase tracking-widest text-white drop-shadow-md">{model.role}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex-1 flex flex-col justify-center">
+                            <p className="text-sm text-slate-300 font-medium leading-relaxed mb-6 italic">"{model.definition}"</p>
+                            <div className="mb-6">
+                              <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Kärnvärden</h4>
+                              <div className="flex flex-wrap gap-2">
+                                {(model.coreValues || []).map(val => (
+                                  <span key={val} className="px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35] text-[10px] font-black uppercase tracking-widest text-gray-300">{val}</span>
+                                ))}
+                              </div>
+                            </div>
+                            <button onClick={() => { setActiveModel(model); setActiveTab('COLLAGE'); }} className="self-start mt-auto px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-[#3a3f4b] bg-[#1a1c23] text-slate-300 group-hover:bg-[var(--hover-color)] group-hover:text-[#050505] group-hover:border-[var(--hover-color)] shadow-md transition-all flex items-center gap-2 cursor-pointer">
+                              <Icon name="book" className="w-3 h-3" /> Granska fullständig profil
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'COLLAGE' && activeModel && (
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 pb-20">
+                  {/* Left Column: Model Overview */}
+                  <div className="xl:col-span-4 flex flex-col gap-6 xl:sticky xl:top-8 h-fit">
+                    <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] p-8 rounded-[3rem] border border-[#2a2d35] shadow-[0_20px_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
+                      <div className="flex flex-wrap items-center justify-between mb-8 gap-2">
+                        <div className="flex items-center gap-3">
+                          <button onClick={() => setActiveTab('AGENCY')} className="w-8 h-8 rounded-full bg-[#1a1c23] border border-[#3a3f4b] flex items-center justify-center hover:bg-[#2a2d35] transition-colors cursor-pointer">
+                            <Icon name="arrowLeft" className="w-4 h-4 text-slate-300" />
+                          </button>
+                          <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--theme-color)' }} />
+                          <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--theme-color)' }}>Aktiv Modell</span>
+                        </div>
+                        <button onClick={() => { setKeynoteStartSlide(0); setShowKeynote(true); }} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1a1c23] border border-[var(--theme-color)] text-[var(--theme-color)] shadow-lg hover:scale-105 transition-all text-[10px] font-black uppercase tracking-widest cursor-pointer">
+                          <Icon name="monitorPlay" className="w-3.5 h-3.5" /> Starta Keynote
+                        </button>
+                      </div>
+
+                      <div className="w-full h-48 rounded-3xl overflow-hidden mb-6 relative border border-[#1f222a] cursor-pointer" onClick={() => setLightboxImage(activeModel.themeImageUrl)}>
+                        <img src={activeModel.themeImageUrl} alt="Hero" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80" />
+                        <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                          <Icon name="sparkles" className="w-4 h-4" style={{ color: 'var(--theme-color)' }} />
+                          <span className="text-[10px] font-black uppercase tracking-widest text-white">Huvudprofil</span>
+                        </div>
+                      </div>
+
+                      <h2 className="text-6xl font-black uppercase italic tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-400 to-gray-800 mb-2">
+                        {activeModel.name}
+                      </h2>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 border-b border-[#1f222a] pb-6">
+                        {activeModel.role}
+                      </p>
+
+                      <div className="space-y-6">
+                        <div>
+                          <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 flex items-center gap-2">
+                            <Icon name="layers" className="w-3 h-3" /> Manifest
+                          </h3>
+                          <p className="text-sm text-gray-300 leading-relaxed font-medium">
+                            {activeModel.definition}
+                          </p>
+                        </div>
+
+                        <div>
+                          <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 flex items-center gap-2">
+                            <Icon name="cpu" className="w-3 h-3" /> DNA Profil
+                          </h3>
+                          <div className="flex flex-wrap gap-2">
+                            {(activeModel.coreValues || []).map(val => (
+                              <span key={val} className="px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35] text-[10px] font-black uppercase tracking-widest text-gray-300">
+                                {val}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {(activeModel.professions || []).length > 0 && (
+                          <div className="pt-4 border-t border-[#1f222a]">
+                            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+                              <Icon name="book" className="w-3 h-3" /> Innehållsförteckning (Yrken)
+                            </h3>
+                            <ul className="space-y-2">
+                              {activeModel.professions.map((prof, idx) => (
+                                <li key={prof.id}>
+                                  <button onClick={() => document.getElementById(`profession-${prof.id}`)?.scrollIntoView({ behavior: 'smooth' })} className="text-sm font-medium text-slate-300 hover:text-white transition-colors flex items-center gap-2 text-left w-full cursor-pointer">
+                                    <span className="text-[10px] font-black" style={{ color: 'var(--theme-color)' }}>0{idx + 1}</span> {prof.title}
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Keynote Widget, Videos & Portfolios */}
+                  <div className="xl:col-span-8 flex flex-col gap-12">
+                    <MiniKeynoteWidget 
+                      model={activeModel} 
+                      onOpenFullscreen={(startIdx = 0) => {
+                        setKeynoteStartSlide(startIdx);
+                        setShowKeynote(true);
+                      }} 
+                    />
+
+                    {/* Showreels */}
+                    {(activeModel.showreelVideoUrl || activeModel.secondaryShowreelVideoUrl) && (
+                      <div className="flex flex-col gap-6">
+                        {activeModel.showreelVideoUrl && (
+                          <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-4 border border-[#2a2d35] shadow-2xl">
+                            <div className="rounded-[2.5rem] overflow-hidden relative border border-[#1f222a] aspect-video">
+                              <video src={activeModel.showreelVideoUrl} controls autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                              <div className="absolute top-6 left-6 flex items-center gap-2 pointer-events-none bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+                                <Icon name="play" className="w-4 h-4" style={{ color: activeModel.themeColor || '#fbbf24' }} />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-white">Presentationsfilm 1</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {activeModel.secondaryShowreelVideoUrl && (
+                          <div className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-4 border border-[#2a2d35] shadow-2xl">
+                            <div className="rounded-[2.5rem] overflow-hidden relative border border-[#1f222a] aspect-video">
+                              <video src={activeModel.secondaryShowreelVideoUrl} controls autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                              <div className="absolute top-6 left-6 flex items-center gap-2 pointer-events-none bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+                                <Icon name="play" className="w-4 h-4" style={{ color: activeModel.themeColor || '#fbbf24' }} />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-white">Presentationsfilm 2 (Vit Klänning / Showcase)</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Professions */}
+                    {(activeModel.professions || []).map((prof, index) => (
+                      <div 
+                        id={`profession-${prof.id}`}
+                        key={prof.id} 
+                        className="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-8 border border-[#2a2d35] shadow-[0_20px_40px_rgba(0,0,0,0.6)] flex flex-col gap-6 scroll-mt-8"
+                      >
+                        <div className="border-b border-[#2a2d35] pb-6 flex items-start justify-between">
+                          <div>
+                            <span className="text-[10px] font-black uppercase tracking-widest mb-2 block" style={{ color: 'var(--theme-color)' }}>Kollektion / Yrke 0{index + 1}</span>
+                            <h3 className="text-4xl font-black uppercase italic tracking-tighter text-white">{prof.title}</h3>
+                          </div>
+                        </div>
+
+                        {prof.presentationVideoUrl && (
+                          <div className="rounded-[2.5rem] overflow-hidden relative border border-[#1f222a] aspect-video w-full shadow-2xl mb-2">
+                            <video src={prof.presentationVideoUrl} controls autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                          </div>
+                        )}
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-300 font-medium leading-relaxed">
+                          <div>
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Beskrivning</h4>
+                            <p>{prof.description}</p>
+                          </div>
+                          <div>
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Historik & Erfarenhet</h4>
+                            <p>{prof.history}</p>
+                          </div>
+                        </div>
+
+                        <div className="mt-4">
+                          <SmartMediaGrid media={prof.media} onImageClick={setLightboxImage} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </main>
+          </div>
+
+          {/* Lightbox */}
+          {lightboxImage && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-12 cursor-pointer" onClick={() => setLightboxImage(null)}>
+              <button className="absolute top-8 right-8 text-white hover:text-[var(--theme-color)] transition-colors z-50 p-2" onClick={(e) => { e.stopPropagation(); setLightboxImage(null); }}>
+                <Icon name="x" className="w-8 h-8" />
+              </button>
+              <img src={lightboxImage} alt="Fullscreen" className="max-w-full max-h-full object-contain rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)]" />
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
