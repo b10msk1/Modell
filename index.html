@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="sv" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA AGENCY — DNA Vault Presentation</title>
+  <meta name="description" content="Ett hypermodernt arkiv och agentur för nästa generations AI-modeller. Vi bygger identiteter från grunden, strukturerar DNA och skapar visuella upplevelser i absolut toppklass." />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --theme-color: #e58e26;
+      --theme-color-transparent: rgba(229, 142, 38, 0.15);
+    }
+    * {
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      background-color: #0b0c10;
+      color: #f1f5f9;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseSlow {
+      0%, 100% { opacity: 0.25; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.08); }
+    }
+    .animate-glow {
+      animation: pulseSlow 8s ease-in-out infinite;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0b0c10] text-slate-100 selection:bg-[#e58e26] selection:text-black">
+
+  <!-- Ambient Dynamic Background Glow -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden no-print">
+    <div id="glow-1" class="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] rounded-full blur-[150px] mix-blend-screen opacity-25 animate-glow transition-colors duration-1000" style="background-color: var(--theme-color);"></div>
+    <div id="glow-2" class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-screen opacity-20 animate-glow transition-colors duration-1000" style="background-color: var(--theme-color);"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="no-print sticky top-0 bg-[#14161d]/90 backdrop-blur-md border-b border-[#2a2d35] px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 z-40 shadow-2xl">
+      <div class="flex items-center gap-4 cursor-pointer" onclick="navigateTo('AGENCY')">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#2a2d35] to-[#0f1115] border border-[#3a3f4b] flex items-center justify-center shadow-md">
+          <i data-lucide="fingerprint" class="w-5 h-5 text-[#e58e26]" id="brand-icon"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-black uppercase italic tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-300 to-gray-600 leading-none">
+            DNA Vault
+          </h1>
+          <span class="text-[10px] font-black uppercase tracking-widest text-slate-400" id="header-agency-name"></span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs & Actions -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex items-center p-1 bg-[#0a0b0e] rounded-2xl border border-[#1f222a] shadow-inner">
+          <button id="tab-btn-agency" onclick="navigateTo('AGENCY')" class="px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 bg-[#1a1c23] text-white border border-[#3a3f4b]">
+            <i data-lucide="database" class="w-3.5 h-3.5"></i> Agentur & Index
+          </button>
+          <button id="tab-btn-model" onclick="navigateTo('COLLAGE')" class="px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 text-slate-400 hover:text-white border border-transparent">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i> Modell Portfolio
+          </button>
+        </div>
+
+        <button onclick="window.print()" class="px-3.5 py-2.5 rounded-xl bg-[#14161d] border border-[#2a2d35] hover:border-[#e58e26] text-slate-300 hover:text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-all shadow-md" title="Skriv ut till PDF">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i> PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-1 p-4 md:p-8 max-w-[1600px] w-full mx-auto" id="app-root">
+      <!-- Injected via JavaScript -->
+    </main>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-12 cursor-pointer" onclick="closeLightbox()">
+    <button class="absolute top-8 right-8 text-white hover:text-[#e58e26] transition-colors z-50 p-2" onclick="closeLightbox()">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Fullscreen Preview" class="max-w-full max-h-full object-contain rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)]" />
+  </div>
+
+  <!-- Fullscreen Keynote Presentation Overlay -->
+  <div id="keynote-modal" class="fixed inset-0 z-50 hidden bg-[#050505] flex flex-col justify-between p-4 md:p-8 select-none">
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between z-20">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-black tracking-widest text-white uppercase" id="keynote-slide-counter">
+          Slide 1 / 1
+        </span>
+        <span class="text-xs font-bold text-slate-400 hidden sm:inline" id="keynote-slide-tagline"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="toggleKeynoteAutoPlay()" id="keynote-autoplay-btn" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all text-xs font-black uppercase flex items-center gap-1.5 px-3">
+          <i data-lucide="play" class="w-4 h-4"></i> <span id="keynote-play-label">Autoplay</span>
+        </button>
+        <button onclick="closeKeynote()" class="p-2 rounded-xl bg-white/10 hover:bg-red-500/80 text-white transition-all">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Stage -->
+    <div class="flex-1 flex items-center justify-center my-4 overflow-hidden relative" id="keynote-stage">
+      <!-- Injected Slide Content -->
+    </div>
+
+    <!-- Bottom Controls & Dots -->
+    <div class="flex flex-col gap-3 z-20">
+      <div class="flex items-center justify-center gap-2 overflow-x-auto py-1" id="keynote-dots"></div>
+      <div class="flex items-center justify-between">
+        <button onclick="prevKeynoteSlide()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-black uppercase tracking-widest flex items-center gap-2 transition-all">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Föregående
+        </button>
+        <span class="text-[10px] uppercase font-bold text-slate-500 hidden md:inline">Använd piltangenterna &larr; &rarr; eller tryck ESC för att stänga</span>
+        <button onclick="nextKeynoteSlide()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-black uppercase tracking-widest flex items-center gap-2 transition-all">
+          Nästa <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPT & DATA -->
+  <script>
+    // Embedded Data
+    const AGENCY = {"name":"AURA AGENCY","logoUrl":"https://i.imgur.com/dR9M9VC.jpeg","description":"Ett hypermodernt arkiv och agentur för nästa generations AI-modeller. Vi bygger identiteter från grunden, strukturerar DNA och skapar visuella upplevelser i absolut toppklass.","models":[{"id":"alita-001","name":"Alita","role":"Minimalistisk Kreativ Ikon","definition":"En fotorealistisk AI-modell (29) med rakad styrka, kreativ själ och okonventionell skönhet. Skapad för att representera minimalism och autenticitet. Hon är introduktionsmodellen för hur man bygger en profil från grunden.","coreValues":["Minimalism","Styrka","Kreativitet","Autenticitet"],"themeColor":"#e2e8f0","logoUrl":"https://i.imgur.com/QwO7P8l.jpeg","signatureUrl":"https://i.imgur.com/Dh5v5sa.jpeg","themeImageUrl":"https://i.imgur.com/KVBMfXD.jpeg","media":[],"professions":[{"id":"alita-p1","title":"Medicinsk & Rehabilitering","description":"Hennes rena, rakade look och tonade hållning gjorde henne perfekt för medicinska kampanjer, kliniska reklamfilmer och hälsoprojekt.","history":"Alita blev upptäckt av ett medicinföretag som sökte en modell som kunde förmedla styrka, sårbarhet och renhet. Det var där hennes resa började.","media":[{"id":"am1","type":"image","url":"https://i.imgur.com/yEM0Gxp.jpeg","caption":"Medicinsk Kampanj 1"},{"id":"am2","type":"image","url":"https://i.imgur.com/eWuiOte.jpg","caption":"Klinisk Renhet"},{"id":"m-1786902149241","type":"image","url":"https://i.imgur.com/5x7LOAX.jpeg","caption":"Självkänsla"},{"id":"m-1786902150591","type":"image","url":"https://i.imgur.com/5wGC3vT.jpeg","caption":"skönhet"},{"id":"m-1786902151663","type":"image","url":"https://i.imgur.com/wSqrgnZ.jpeg","caption":"Tillfrisknad"},{"id":"m-1786902772615","type":"image","url":"https://i.imgur.com/moJlZNK.jpeg","caption":"Frisk"}]},{"id":"alita-p2","title":"Kreativ Fashion & Editorial","description":"Futuristiska minimalistiska outfits, rena färger och skarpa konturer. Alita är en klädmodell som inte följer regler – hon skriver dem.","history":"Hennes unika uttryck tog henne vidare till större modejobb, editorial-uppdrag och tävlingar. Hon är modellen som ingen kan förutsäga.","media":[{"id":"am3","type":"image","url":"https://i.imgur.com/lSHvmHb.jpeg","caption":"Alita - Editorial Look"},{"id":"m-1786902410789","type":"image","url":"https://i.imgur.com/t280pSz.jpeg","caption":"Alita"},{"id":"m-1786902414277","type":"image","url":"https://i.imgur.com/klNAMC1.jpeg","caption":"Alita"},{"id":"m-1786902414843","type":"image","url":"https://i.imgur.com/IYabHMh.jpeg","caption":"Alita"},{"id":"m-1786902415471","type":"image","url":"https://i.imgur.com/naOmeNI.jpeg","caption":"Alita"},{"id":"m-1786904133754","type":"image","url":"https://i.imgur.com/z1RlBza.jpeg","caption":"Alita"}]},{"id":"alita-p3","title":"KOLLEKTIONer och tävlingar","description":"Alita har alltid varit svag för transparanta kläder och visar gärna upp ett par favoriter här.","history":"Alita är en fristående modell. Hon skapades ur idén att skönhet inte behöver hår för att vara stark. En mall för framtidens modellagenter.","media":[{"id":"m-1786906491778","type":"image","url":"https://i.imgur.com/aAPTyu9.jpeg","caption":"Alita - samlingar"},{"id":"m-1786906492298","type":"image","url":"https://i.imgur.com/l4c2Bhf.jpeg","caption":"Alita - samlingar"},{"id":"m-1786907693339","type":"image","url":"https://i.imgur.com/Bv7nKBX.jpeg","caption":"Alita - samlingar"},{"id":"m-1786907695147","type":"image","url":"https://i.imgur.com/NYdrK5K.jpg","caption":"Alita - samlingar"},{"id":"m-1786907696381","type":"image","url":"https://i.imgur.com/0gm6sw7.jpeg","caption":"Alita - samlingar"},{"id":"m-1786907700697","type":"image","url":"https://i.imgur.com/ohGOrjV.jpeg","caption":"Alita - samlingar"}]}],"showreelVideoUrl":"https://i.imgur.com/VmTTkRY.mp4"},{"id":"astrail-001","name":"Astrail & Syskonen","role":"The New Era (Auras Arv)","definition":"Astrail (26) tar över rampljuset, utrustad med både en animerad grundform och en fotorealistisk sida. Hennes syskon Inga (36) och Bodil (21) backar upp henne. De är alla djupt rotade i Auras ursprung – som i sin tur skapades från originalbilder på arkitekten själv.","coreValues":["Ursprung","Mångsidighet","Syskonskap","Evolution"],"themeColor":"#fbbf24","logoUrl":"https://i.imgur.com/LNbGzlR.jpeg","signatureUrl":"https://i.imgur.com/1v5xjdl.jpeg","themeImageUrl":"https://i.imgur.com/xNX0AYR.jpeg","media":[],"professions":[{"id":"p1","title":"Astrail (26)","description":"Står i rampljuset med två sidor: den stiliserade grundformen och den hyperrealistiska närvaron. Redo att leda den nya generationens interaktioner.","history":"Utvecklad ur Auras kärna. Syskonen är lyckliga över att hon ber dem om hjälp så att de också får chansen att glänsa.","media":[{"id":"pm1","type":"image","url":"https://i.imgur.com/iFQlVsM.png","caption":"Astrail - Ursprungsform"},{"id":"pm2","type":"image","url":"https://i.imgur.com/Xj6N8r3.png","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838331486","type":"image","url":"https://i.imgur.com/LbaQGok.png","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838370416","type":"image","url":"https://i.imgur.com/a1kZ8Gl.jpeg","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838384954","type":"image","url":"https://i.imgur.com/sK8TGjW.jpeg","caption":"Astrail - Fotorealistisk"},{"id":"m-1786838396252","type":"image","url":"https://i.imgur.com/Zf4m7kp.jpeg","caption":"Astrail - Fotorealistisk"}]},{"id":"p2","title":"Inga (36)","description":"Storasyster och assisterande kraft. Håller struktur och backar upp syskonen i modebranschen, trots branschens åldersfixering.","history":"Får egna modelljobb och jobbar hårt, men hennes primära roll är att skydda och stötta Astrail och Bodil.","media":[{"id":"pm3","type":"image","url":"https://i.imgur.com/L2l21PG.png","caption":"Inga - Storasyster"},{"id":"m-1786843743255","type":"image","url":"https://i.imgur.com/7N6FB6x.png","caption":"Inga - Storasyster"},{"id":"m-1786843744473","type":"image","url":"https://i.imgur.com/xVjXXEh.png","caption":"Inga - Storasyster"},{"id":"m-1786843745631","type":"image","url":"https://i.imgur.com/FNGVwvJ.png","caption":"Inga - Storasyster"},{"id":"m-1786843978333","type":"image","url":"https://i.imgur.com/9ER8T7U.png","caption":"Inga - Storasyster"},{"id":"m-1786843980009","type":"image","url":"https://i.imgur.com/WphJCr8.png","caption":"Inga - Storasyster"}]},{"id":"p3","title":"Bodil (21)","description":"Lillasyster och energisk sidekick. Har knappt fått vara med ännu, men hennes tid i rampljuset kommer.","history":"Den yngsta i den nya eran efter AURA. Nyfiken, oprövad och redo för framtiden.","media":[{"id":"pm4","type":"image","url":"https://i.imgur.com/r73P9A7.png","caption":"Bodil - Lillasyster"},{"id":"m-1786839386531","type":"image","url":"https://i.imgur.com/tFcDdXW.png","caption":"Bodil - Lillasyster"},{"id":"m-1786839419065","type":"image","url":"https://i.imgur.com/YU1yF72.png","caption":"Bodil - Lillasyster"},{"id":"m-1786844550303","type":"image","url":"https://i.imgur.com/MvLPNXe.png","caption":"Bodil - Lillasyster"},{"id":"m-1786844551420","type":"image","url":"https://i.imgur.com/rj3Qgis.png","caption":"Bodil - Lillasyster"},{"id":"m-1786844554880","type":"image","url":"https://i.imgur.com/xlLjy4F.png","caption":"Bodil - Lillasyster"}]},{"id":"p-1786884257681","title":"Spel NPC/Karaktär","description":"Astrail som virtuell spelkaraktär och NPC. Det var denna form som kom att bli den nya \"Aura\". AI-Assistenten 2026.","history":"Det är så här hon såg ut när beslutet togs att spinna vidare på hennes utsida och ge henne en personlighet, röst och ett fotorealistiskt utseende.","presentationVideoUrl":"https://i.imgur.com/OxSRR0d.mp4","media":[{"id":"m-1786844638620","type":"image","url":"https://i.imgur.com/ORdkUfK.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844639086","type":"image","url":"https://i.imgur.com/f03My4M.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844639698","type":"image","url":"https://i.imgur.com/BYBi7i6.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844641056","type":"image","url":"https://i.imgur.com/lcTNiEk.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786844641693","type":"image","url":"https://i.imgur.com/yMGCKrO.png","caption":"Astrail - Spelkaraktär (Animerad)"},{"id":"m-1786894951247","type":"image","url":"https://i.imgur.com/B5Dprme.png","caption":"Astrail - Spelkaraktär (Koncept)"},{"id":"m-1786884457711","type":"image","url":"https://i.imgur.com/Pcelkfz.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884458263","type":"image","url":"https://i.imgur.com/bq6WlM5.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884458829","type":"image","url":"https://i.imgur.com/ivR4vbG.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884459389","type":"image","url":"https://i.imgur.com/cenU5nw.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884459939","type":"image","url":"https://i.imgur.com/0ksU818.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"},{"id":"m-1786884461733","type":"image","url":"https://i.imgur.com/NOKZHK4.png","caption":"Astrail - SPEL - NPC/KARAKTÄR"}]}],"showreelVideoUrl":"https://i.imgur.com/jGcPDDd.mp4","secondaryShowreelVideoUrl":"https://i.imgur.com/UK6c87t.mp4"}],"media":[{"id":"m1","type":"image","url":"https://i.imgur.com/ZOWF1II.jpeg","caption":"Affisch 1"},{"id":"m2","type":"image","url":"https://i.imgur.com/3c8xqHz.jpeg","caption":"Affisch 2"},{"id":"m3","type":"image","url":"https://i.imgur.com/IOwrY28.jpeg","caption":"Affisch 3"},{"id":"m4","type":"image","url":"https://i.imgur.com/i2WqcOG.png","caption":"Aura Tema"}],"presentationVideoUrl":"https://i.imgur.com/1NGI7Ps.mp4"};
+
+    let activeTab = 'AGENCY';
+    let activeModelId = AGENCY.models && AGENCY.models.length > 0 ? AGENCY.models[0].id : null;
+    let showCompanyCollage = false;
+
+    // Keynote State
+    let keynoteSlides = [];
+    let currentSlideIdx = 0;
+    let keynoteAutoPlayTimer = null;
+
+    function setThemeColor(color) {
+      document.documentElement.style.setProperty('--theme-color', color);
+      document.documentElement.style.setProperty('--theme-color-transparent', color + '25');
+      const glow1 = document.getElementById('glow-1');
+      const glow2 = document.getElementById('glow-2');
+      if (glow1) glow1.style.backgroundColor = color;
+      if (glow2) glow2.style.backgroundColor = color;
+      const brandIcon = document.getElementById('brand-icon');
+      if (brandIcon) brandIcon.style.color = color;
+    }
+
+    function getActiveModel() {
+      return AGENCY.models.find(m => m.id === activeModelId) || AGENCY.models[0];
+    }
+
+    function navigateTo(tab, modelId) {
+      activeTab = tab;
+      if (modelId) activeModelId = modelId;
+      updateNavButtons();
+      renderApp();
+    }
+
+    function updateNavButtons() {
+      const btnAgency = document.getElementById('tab-btn-agency');
+      const btnModel = document.getElementById('tab-btn-model');
+      if (btnAgency && btnModel) {
+        if (activeTab === 'AGENCY') {
+          btnAgency.className = "px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 bg-[#1a1c23] text-white border border-[#3a3f4b] shadow-md";
+          btnModel.className = "px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 text-slate-400 hover:text-white border border-transparent";
+        } else {
+          btnAgency.className = "px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 text-slate-400 hover:text-white border border-transparent";
+          btnModel.className = "px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 bg-[#1a1c23] text-white border border-[#3a3f4b] shadow-md";
+        }
+      }
+    }
+
+    function openLightbox(url) {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      if (modal && img) {
+        img.src = url;
+        modal.classList.remove('hidden');
+      }
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // --- KEYNOTE SYSTEM ---
+    function buildSlides(model) {
+      const s = [];
+
+      // Presentationsfilm 1 (Huvudvideo) som Slide 1
+      if (model.showreelVideoUrl) {
+        s.push({
+          type: 'SHOWREEL',
+          title: model.name + ' — Presentationsfilm',
+          subtitle: model.secondaryShowreelVideoUrl ? 'Officiell Presentation' : 'Modellens Huvudvideo',
+          videoUrl: model.showreelVideoUrl
+        });
+      }
+
+      // Presentationsfilm 2 (Vit Klänning / Showcase) som Slide 2
+      if (model.secondaryShowreelVideoUrl) {
+        s.push({
+          type: 'SHOWREEL',
+          title: model.name + ' — Presentationsfilm 2',
+          subtitle: 'Vit Klänning / Showcase',
+          videoUrl: model.secondaryShowreelVideoUrl
+        });
+      }
+
+      // Hero Slide
+      s.push({
+        type: 'HERO',
+        title: model.name,
+        subtitle: model.role,
+        definition: model.definition,
+        values: model.coreValues,
+        image: model.themeImageUrl,
+        logo: model.logoUrl
+      });
+
+      // Kollektioner / Yrken
+      (model.professions || []).forEach((p, pIdx) => {
+        s.push({
+          type: 'TITLE',
+          title: p.title,
+          subtitle: 'Kollektion ' + (pIdx + 1),
+          description: p.description,
+          history: p.history,
+          videoUrl: p.presentationVideoUrl
+        });
+
+        const mediaList = p.media || [];
+        for (let i = 0; i < mediaList.length; i += 2) {
+          const chunk = mediaList.slice(i, i + 2);
+          s.push({
+            type: 'GALLERY',
+            title: p.title,
+            items: chunk
+          });
+        }
+      });
+
+      return s;
+    }
+
+    function startKeynote(startIdx = 0) {
+      const model = getActiveModel();
+      keynoteSlides = buildSlides(model);
+      currentSlideIdx = Math.min(startIdx, keynoteSlides.length - 1);
+      
+      const modal = document.getElementById('keynote-modal');
+      if (modal) modal.classList.remove('hidden');
+      
+      renderKeynoteSlide();
+    }
+
+    function closeKeynote() {
+      if (keynoteAutoPlayTimer) {
+        clearInterval(keynoteAutoPlayTimer);
+        keynoteAutoPlayTimer = null;
+      }
+      const modal = document.getElementById('keynote-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function toggleKeynoteAutoPlay() {
+      const label = document.getElementById('keynote-play-label');
+      if (keynoteAutoPlayTimer) {
+        clearInterval(keynoteAutoPlayTimer);
+        keynoteAutoPlayTimer = null;
+        if (label) label.textContent = 'Autoplay';
+      } else {
+        keynoteAutoPlayTimer = setInterval(() => {
+          nextKeynoteSlide();
+        }, 5000);
+        if (label) label.textContent = 'Pausa';
+      }
+    }
+
+    function nextKeynoteSlide() {
+      if (currentSlideIdx < keynoteSlides.length - 1) {
+        currentSlideIdx++;
+      } else {
+        currentSlideIdx = 0;
+      }
+      renderKeynoteSlide();
+    }
+
+    function prevKeynoteSlide() {
+      if (currentSlideIdx > 0) {
+        currentSlideIdx--;
+      } else {
+        currentSlideIdx = keynoteSlides.length - 1;
+      }
+      renderKeynoteSlide();
+    }
+
+    function renderKeynoteSlide() {
+      const slide = keynoteSlides[currentSlideIdx];
+      const stage = document.getElementById('keynote-stage');
+      const counter = document.getElementById('keynote-slide-counter');
+      const tagline = document.getElementById('keynote-slide-tagline');
+      const dots = document.getElementById('keynote-dots');
+
+      if (counter) counter.textContent = `Slide ${currentSlideIdx + 1} / ${keynoteSlides.length}`;
+      if (tagline) tagline.textContent = slide.title || '';
+
+      // Render Dots
+      if (dots) {
+        dots.innerHTML = keynoteSlides.map((_, i) => `
+          <button onclick="currentSlideIdx = ${i}; renderKeynoteSlide();" class="w-3 h-3 rounded-full transition-all ${i === currentSlideIdx ? 'bg-[#e58e26] scale-125' : 'bg-white/20 hover:bg-white/40'}"></button>
+        `).join('');
+      }
+
+      if (!stage) return;
+
+      if (slide.type === 'SHOWREEL') {
+        stage.innerHTML = `
+          <div class="w-full max-w-5xl h-full max-h-[80vh] flex flex-col items-center justify-center gap-4">
+            <div class="relative w-full aspect-video rounded-3xl overflow-hidden border border-[#2a2d35] shadow-2xl bg-black">
+              <video src="${slide.videoUrl}" controls autoplay loop class="w-full h-full object-cover"></video>
+            </div>
+            <div class="text-center">
+              <h2 class="text-2xl font-black uppercase italic tracking-tighter text-white">${slide.title}</h2>
+              <p class="text-xs font-bold uppercase tracking-widest text-[#e58e26]">${slide.subtitle}</p>
+            </div>
+          </div>
+        `;
+      } else if (slide.type === 'HERO') {
+        stage.innerHTML = `
+          <div class="w-full max-w-5xl h-full max-h-[80vh] grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-[#14161d] p-8 md:p-12 rounded-[3rem] border border-[#2a2d35] shadow-2xl">
+            <div class="h-64 md:h-96 rounded-3xl overflow-hidden border border-[#2a2d35] shadow-inner cursor-pointer" onclick="openLightbox('${slide.image}')">
+              <img src="${slide.image}" alt="${slide.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div class="flex flex-col gap-4">
+              <span class="text-[10px] font-black uppercase tracking-widest text-[#e58e26]">Modell Portfolio // DNA Vault</span>
+              <h1 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter text-white">${slide.title}</h1>
+              <p class="text-xs font-bold uppercase tracking-widest text-slate-400">${slide.subtitle}</p>
+              <p class="text-sm text-slate-300 italic border-l-2 border-[#e58e26] pl-4 my-2">"${slide.definition}"</p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                ${(slide.values || []).map(v => `<span class="px-3 py-1 rounded-xl bg-black/50 border border-[#2a2d35] text-[10px] font-black uppercase tracking-widest text-slate-300">${v}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (slide.type === 'TITLE') {
+        stage.innerHTML = `
+          <div class="w-full max-w-4xl flex flex-col items-center justify-center text-center gap-6 p-8 bg-[#14161d] rounded-[3rem] border border-[#2a2d35] shadow-2xl">
+            <span class="text-[10px] font-black uppercase tracking-widest text-[#e58e26]">${slide.subtitle}</span>
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter text-white">${slide.title}</h2>
+            ${slide.videoUrl ? `
+              <div class="w-full aspect-video rounded-3xl overflow-hidden border border-[#2a2d35] my-2 bg-black">
+                <video src="${slide.videoUrl}" controls autoplay loop class="w-full h-full object-cover"></video>
+              </div>
+            ` : ''}
+            <p class="text-base text-slate-300 max-w-2xl leading-relaxed">${slide.description || ''}</p>
+            ${slide.history ? `<p class="text-xs text-slate-400 italic max-w-xl">${slide.history}</p>` : ''}
+          </div>
+        `;
+      } else if (slide.type === 'GALLERY') {
+        stage.innerHTML = `
+          <div class="w-full max-w-5xl h-full flex flex-col items-center justify-center gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-${slide.items.length} gap-6 w-full max-h-[75vh]">
+              ${slide.items.map(item => `
+                <div class="h-80 md:h-[65vh] rounded-3xl overflow-hidden border border-[#2a2d35] bg-black shadow-2xl relative group cursor-pointer" onclick="openLightbox('${item.url}')">
+                  <img src="${item.url}" alt="${item.caption || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div class="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-md p-3 rounded-2xl border border-white/10">
+                    <p class="text-xs font-bold text-white">${item.caption || slide.title}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      const keynoteModal = document.getElementById('keynote-modal');
+      const isKeynoteOpen = keynoteModal && !keynoteModal.classList.contains('hidden');
+      if (isKeynoteOpen) {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+          nextKeynoteSlide();
+        } else if (e.key === 'ArrowLeft') {
+          prevKeynoteSlide();
+        } else if (e.key === 'Escape') {
+          closeKeynote();
+        }
+      }
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+
+    // --- RENDER AGENCY VIEW ---
+    function renderAgencyView() {
+      const allCompanyMedia = [];
+      if (AGENCY.logoUrl) {
+        allCompanyMedia.push({
+          url: AGENCY.logoUrl,
+          caption: AGENCY.name + ' — Officiell Logotyp'
+        });
+      }
+      (AGENCY.media || []).forEach(m => {
+        if (!allCompanyMedia.some(x => x.url === m.url)) allCompanyMedia.push(m);
+      });
+
+      return `
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 pb-16">
+          <!-- Vänster: Företagsprofil -->
+          <div class="xl:col-span-4 flex flex-col gap-6 xl:sticky xl:top-24 h-fit">
+            <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] p-8 rounded-[3rem] border border-[#2a2d35] shadow-2xl relative overflow-hidden">
+              <div class="w-full h-48 md:h-64 rounded-3xl overflow-hidden mb-6 relative border border-[#1f222a] flex items-center justify-center bg-[#050505] p-4 cursor-pointer" onclick="openLightbox('${AGENCY.logoUrl || ''}')">
+                ${AGENCY.logoUrl ? `<img src="${AGENCY.logoUrl}" alt="Logo" class="w-full h-full object-contain hover:scale-105 transition-transform duration-700" />` : '<i data-lucide="database" class="w-12 h-12 text-slate-600"></i>'}
+              </div>
+
+              <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-2">${AGENCY.name}</h2>
+              <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 pb-4 border-b border-[#2a2d35]">Officiell Presentation & Index</p>
+              
+              <div class="mb-6">
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 block">Agentur Manifest</span>
+                <p class="text-sm text-slate-300 italic leading-relaxed">"${AGENCY.description || ''}"</p>
+              </div>
+
+              ${allCompanyMedia.length > 0 ? `
+                <div class="pt-4 border-t border-[#1f222a]">
+                  <button onclick="toggleCompanyCollage()" class="text-xs font-bold text-slate-300 hover:text-white transition-colors flex items-center gap-2 group cursor-pointer text-left">
+                    <i data-lucide="image" class="w-4 h-4 text-[#e58e26]"></i>
+                    <span class="underline underline-offset-4 decoration-slate-600 group-hover:decoration-[#e58e26]">
+                      ${showCompanyCollage ? 'Dölj företagskollage' : `Visa företagskollage (logotyp & ${allCompanyMedia.length - 1} affischer)`}
+                    </span>
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- Höger: Presentation & Roster -->
+          <div class="xl:col-span-8 flex flex-col gap-10">
+            ${AGENCY.presentationVideoUrl ? `
+              <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-4 border border-[#2a2d35] shadow-2xl">
+                <div class="rounded-[2.5rem] overflow-hidden aspect-video relative border border-[#1f222a]">
+                  <video src="${AGENCY.presentationVideoUrl}" controls autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Företagskollage (Utfällt vid klick) -->
+            ${showCompanyCollage && allCompanyMedia.length > 0 ? `
+              <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-6 md:p-8 border border-[#2a2d35] shadow-2xl">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-[#2a2d35]">
+                  <div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-1">HQ Central Media</span>
+                    <h3 class="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-2">
+                      <i data-lucide="image" class="w-4 h-4 text-[#e58e26]"></i> Företagskollage // Logotyp & Affischer
+                    </h3>
+                  </div>
+                  <button onclick="toggleCompanyCollage()" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35]">
+                    Stäng
+                  </button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  ${allCompanyMedia.map(m => `
+                    <div class="h-64 rounded-2xl overflow-hidden border border-[#2a2d35] bg-black cursor-pointer group" onclick="openLightbox('${m.url}')">
+                      <img src="${m.url}" alt="${m.caption || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Modell Index Grid -->
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <span class="text-[10px] font-black uppercase tracking-widest text-[#e58e26] block">Aktiv Roster</span>
+                  <h3 class="text-3xl font-black uppercase italic tracking-tighter text-white">Digitala Modeller // Portfolio</h3>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                ${(AGENCY.models || []).map((m, idx) => `
+                  <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] p-6 rounded-[2.5rem] border border-[#2a2d35] hover:border-[#e58e26] transition-all duration-300 shadow-xl flex flex-col justify-between group cursor-pointer" onclick="navigateTo('COLLAGE', '${m.id}')">
+                    <div class="flex flex-col gap-4">
+                      <div class="w-full h-56 rounded-2xl overflow-hidden border border-[#1f222a] relative bg-black">
+                        <img src="${m.themeImageUrl}" alt="${m.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-xl text-[10px] font-black uppercase text-white border border-white/10">
+                          #0${idx + 1}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 class="text-2xl font-black uppercase italic tracking-tighter text-white group-hover:text-[#e58e26] transition-colors">${m.name}</h4>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">${m.role}</p>
+                        <p class="text-xs text-slate-300 line-clamp-2 italic">"${m.definition}"</p>
+                      </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#2a2d35] flex items-center justify-between mt-4">
+                      <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">${(m.professions || []).length} Kollektioner</span>
+                      <span class="text-xs font-black uppercase tracking-widest text-[#e58e26] flex items-center gap-1">Öppna Portfolio &rarr;</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleCompanyCollage() {
+      showCompanyCollage = !showCompanyCollage;
+      renderApp();
+    }
+
+    // --- RENDER MODEL VIEW ---
+    function renderModelView() {
+      const model = getActiveModel();
+      if (!model) return '<p class="text-center text-slate-400">Ingen modell vald.</p>';
+
+      setThemeColor(model.themeColor || '#e58e26');
+
+      return `
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 pb-16">
+          <!-- Vänster: Modell Profil -->
+          <div class="xl:col-span-4 flex flex-col gap-6 xl:sticky xl:top-24 h-fit">
+            <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] p-8 rounded-[3rem] border border-[#2a2d35] shadow-2xl relative overflow-hidden">
+              <div class="flex items-center justify-between mb-6">
+                <button onclick="navigateTo('AGENCY')" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35]">
+                  <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Tillbaka till Index
+                </button>
+                <button onclick="startKeynote(0)" class="px-4 py-2 rounded-xl bg-[#1a1c23] border border-[#e58e26] text-[#e58e26] text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:scale-105 transition-all shadow-md">
+                  <i data-lucide="monitor-play" class="w-3.5 h-3.5"></i> Starta Keynote
+                </button>
+              </div>
+
+              <div class="w-full h-56 rounded-3xl overflow-hidden mb-6 relative border border-[#1f222a] cursor-pointer" onclick="openLightbox('${model.themeImageUrl}')">
+                <img src="${model.themeImageUrl}" alt="${model.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              </div>
+
+              <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-1">${model.name}</h2>
+              <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 pb-4 border-b border-[#2a2d35]">${model.role}</p>
+
+              <div class="space-y-6">
+                <div>
+                  <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 block">Manifest</span>
+                  <p class="text-sm text-slate-300 leading-relaxed italic">"${model.definition}"</p>
+                </div>
+
+                <div>
+                  <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2 block">DNA Profil</span>
+                  <div class="flex flex-wrap gap-2">
+                    ${(model.coreValues || []).map(v => `
+                      <span class="px-3 py-1.5 rounded-xl bg-[#0a0b0e] border border-[#2a2d35] text-[10px] font-black uppercase tracking-widest text-slate-300">${v}</span>
+                    `).join('')}
+                  </div>
+                </div>
+
+                ${(model.professions || []).length > 0 ? `
+                  <div class="pt-4 border-t border-[#2a2d35]">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 block">Innehållsförteckning (Kollektioner)</span>
+                    <div class="space-y-2">
+                      ${model.professions.map((p, idx) => `
+                        <a href="#prof-${p.id}" class="text-xs font-bold text-slate-300 hover:text-white flex items-center gap-2 transition-colors">
+                          <span class="text-[10px] text-[#e58e26]">0${idx + 1}</span> ${p.title}
+                        </a>
+                      `).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+
+          <!-- Höger: Showreels & Kollektioner -->
+          <div class="xl:col-span-8 flex flex-col gap-10">
+            <!-- Presentationsfilmer -->
+            ${model.showreelVideoUrl ? `
+              <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-4 border border-[#2a2d35] shadow-2xl">
+                <div class="rounded-[2.5rem] overflow-hidden aspect-video relative border border-[#1f222a]">
+                  <video src="${model.showreelVideoUrl}" controls autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+                  <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-[10px] font-black uppercase tracking-widest text-white">
+                    ${model.secondaryShowreelVideoUrl ? 'Presentationsfilm 1 (Officiell Showreel)' : 'Modell Showreel'}
+                  </div>
+                </div>
+              </div>
+            ` : ''}
+
+            ${model.secondaryShowreelVideoUrl ? `
+              <div class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-4 border border-[#2a2d35] shadow-2xl">
+                <div class="rounded-[2.5rem] overflow-hidden aspect-video relative border border-[#1f222a]">
+                  <video src="${model.secondaryShowreelVideoUrl}" controls autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+                  <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-[10px] font-black uppercase tracking-widest text-white">
+                    Presentationsfilm 2 (Vit Klänning / Showcase)
+                  </div>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Kollektioner / Yrken -->
+            ${(model.professions || []).map((p, idx) => `
+              <div id="prof-${p.id}" class="bg-gradient-to-br from-[#1f222a] to-[#0f1115] rounded-[3rem] p-8 border border-[#2a2d35] shadow-2xl flex flex-col gap-6 scroll-mt-24">
+                <div class="border-b border-[#2a2d35] pb-6 flex items-start justify-between">
+                  <div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-[#e58e26] block mb-1">Kollektion 0${idx + 1}</span>
+                    <h3 class="text-3xl font-black uppercase italic tracking-tighter text-white">${p.title}</h3>
+                  </div>
+                </div>
+
+                ${p.presentationVideoUrl ? `
+                  <div class="rounded-[2.5rem] overflow-hidden aspect-video relative border border-[#1f222a] w-full shadow-2xl">
+                    <video src="${p.presentationVideoUrl}" controls autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+                  </div>
+                ` : ''}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300 leading-relaxed">
+                  <div>
+                    <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Beskrivning</h4>
+                    <p class="font-medium">${p.description || ''}</p>
+                  </div>
+                  ${p.history ? `
+                    <div>
+                      <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Historik & Kontext</h4>
+                      <p class="font-medium">${p.history}</p>
+                    </div>
+                  ` : ''}
+                </div>
+
+                ${(p.media || []).length > 0 ? `
+                  <div class="pt-4 border-t border-[#2a2d35]">
+                    <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4">Bildserie & Affischer</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      ${p.media.map(m => `
+                        <div class="h-64 rounded-2xl overflow-hidden border border-[#2a2d35] bg-black cursor-pointer group" onclick="openLightbox('${m.url}')">
+                          <img src="${m.url}" alt="${m.caption || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderApp() {
+      const root = document.getElementById('app-root');
+      const headerName = document.getElementById('header-agency-name');
+      if (headerName) headerName.textContent = AGENCY.name;
+
+      if (!root) return;
+      if (activeTab === 'AGENCY') {
+        root.innerHTML = renderAgencyView();
+      } else {
+        root.innerHTML = renderModelView();
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderApp();
+    });
+  </script>
+</body>
+</html>
